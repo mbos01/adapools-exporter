@@ -28,10 +28,10 @@ def getPoolData(url,delkeys):
                 return ("Error scraping pooldata")
 
         delkeys = (delkeys).split(",")
-        for key in r['data']:
+        for key in r["data"]:
                 if key not in delkeys:
                         a = str(key)
-                        b = str(r['data'][key])
+                        b = str(r["data"][key])
                         pooldata.append(prefix + a + " " + b.lower().replace("none", "0"))
 
         return pooldata #return list
