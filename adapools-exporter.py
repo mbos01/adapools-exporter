@@ -13,7 +13,7 @@ prefix = "adapools_" #prefix for use in prometheus
 
 # Example prometheus config:
 
-#  - job_name: adapool
+#  - job_name: adapools
 #    scrape_interval: 15s
 #    metrics_path: /metrics/ <-- the python http.server component expects this trailing /
 #    static_configs:
