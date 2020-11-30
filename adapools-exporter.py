@@ -20,7 +20,7 @@ prefix = "adapools_" #prefix for use in prometheus
 #      - targets: ['127.0.0.1:8000']
 
 #fetch the pool data
-def getPoolData(url,delkeys):
+def getPoolData(url, delkeys):
         pooldata = []
         try:
                 r = json.loads(requests.get(url).text)
