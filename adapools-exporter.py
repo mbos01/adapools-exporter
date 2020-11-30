@@ -25,7 +25,8 @@ def getPoolData(url, delkeys):
         try:
                 r = json.loads(requests.get(url).text)
         except:
-                return ("Error scraping pooldata")
+		pooldata.append("Error scraping pooldata")
+                return pooldata
 
         delkeys = (delkeys).split(",")
         for key in r["data"]:
