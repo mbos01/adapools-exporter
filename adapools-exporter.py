@@ -21,25 +21,25 @@ prefix = "adapools_" #prefix for use in prometheus
 
 #fetch the pool data
 def getPoolData(url, delkeys):
-        pooldata = []
-        try:
-                r = json.loads(requests.get(url).text)
-        except:
+	pooldata = []
+	try:
+		r = json.loads(requests.get(url).text)
+	except:
 		pooldata.append("Error scraping pooldata")
-                return pooldata
+		return pooldata
 
-        delkeys = (delkeys).split(",")
-        for key in r["data"]:
-                if key not in delkeys:
-                        a = str(key)
-                        b = str(r["data"][key])
-                        pooldata.append(prefix + a + " " + b.lower().replace("none", "0"))
+	delkeys = (delkeys).split(",")
+	for key in r["data"]:
+		if key not in delkeys:
+			a = str(key)
+			b = str(r["data"][key])
+			pooldata.append(prefix + a + " " + b.lower().replace("none", "0"))
 
-        return pooldata #return list
+	return pooldata #return list
 
 #create the metrics folder if it does not exist
 if not os.path.exists("metrics"):
-        os.makedirs("metrics")
+	os.makedirs("metrics")
 
 #spawn webserver to serve the metrics
 httpd = HTTPServer((http_address, http_port), SimpleHTTPRequestHandler)
@@ -50,11 +50,11 @@ thread.start()
 #scrape adapools
 starttime = time.time()
 try:
-        while True:
-                with open("metrics/index.html", "w") as f:
-                        for item in getPoolData(url, delkeys):
-                                f.write("%s\n" % item)
+	while True:
+		with open("metrics/index.html", "w") as f:
+			for item in getPoolData(url, delkeys):
+				f.write("%s\n" % item)
 
-                time.sleep(sec - ((time.time() - starttime) % sec))
+		time.sleep(sec - ((time.time() - starttime) % sec))
 except KeyboardInterrupt:
-        httpd.shutdown()
+	httpd.shutdown()
