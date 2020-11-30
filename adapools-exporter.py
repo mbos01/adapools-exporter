@@ -51,7 +51,7 @@ starttime = time.time()
 try:
         while True:
                 with open("metrics/index.html", "w") as f:
-                        for item in getPoolData(url,delkeys):
+                        for item in getPoolData(url, delkeys):
                                 f.write("%s\n" % item)
 
                 time.sleep(sec - ((time.time() - starttime) % sec))
