@@ -5,8 +5,8 @@ Original idea from Crypto2099: https://crypto2099.io/adding-pool-stats-to-grafan
 
 Installation:
 -------------
-+ mkdir /opt/adapools-exporter
-+ copy script to the folder
++ cd /opt
++ git clone https://github.com/mbos01/adapools-exporter.git
 + sudo nano /etc/systemd/system/adapools-exporter.service
 + paste the following:
 
@@ -34,10 +34,10 @@ Installation:
 
 + add new job to /etc/prometheus/prometheus.yaml:
 
-  - job_name: adapools<br>
-    scrape_interval: 15s
-    metrics_path: /metrics/ <-- the python http.server component expects this trailing /
-    static_configs:
-      - targets: ['127.0.0.1:8000']
+  \- job_name: adapools<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;scrape_interval: 15s<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;metrics_path: /metrics/ <-- the python http.server component expects this trailing /<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;static_configs:<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\- targets: ['127.0.0.1:8000']<br>
  
  
