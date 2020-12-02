@@ -36,7 +36,7 @@ Installation:
 
   \- job_name: adapools<br>
   &nbsp;&nbsp;&nbsp;&nbsp;scrape_interval: 15s<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;metrics_path: /metrics/ <-- the python http.server component expects this trailing /<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;metrics_path: /metrics/ <-- the python http.server component expects this trailing slash<br>
   &nbsp;&nbsp;&nbsp;&nbsp;static_configs:<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\- targets: ['127.0.0.1:8000']<br>
  
