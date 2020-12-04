@@ -8,9 +8,10 @@ Please note that in the below installation guide I assume Python3 is installed a
 Installation:
 -------------
 + cd /opt
-+ git clone https://github.com/mbos01/adapools-exporter.git
++ sudo git clone https://github.com/mbos01/adapools-exporter.git
++ sudo -R chown prometheus:prometheus adapools-exporter
 + cd adapools-exporter
-+ nano adapools-exporter.py 
++ sudo nano adapools-exporter.py 
 + adjust url and insert your own pool id:
 
     url = "https://js.adapools.org/pools/!!!!!YOUR-POOL-ID!!!!!/summary.json" #adapools json<br>
