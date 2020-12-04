@@ -11,7 +11,7 @@ Installation:
 + git clone https://github.com/mbos01/adapools-exporter.git
 + cd adapools-exporter
 + nano adapools-exporter.py 
-+ adjust url and insert you pool id:
++ adjust url and insert your own pool id:
 
     url = "https://js.adapools.org/pools/!!!!!YOUR-POOL-ID!!!!!/summary.json" #adapools json<br>
 + save and close nano
