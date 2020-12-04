@@ -37,7 +37,7 @@ Installation:
 + sudo systemctl daemon-reload
 + sudo service adapools-exporter start
 
-+ add new job to /etc/prometheus/prometheus.yaml: *mind the traling slash in the metrics path*
++ add new job to /etc/prometheus/prometheus.yaml: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;***mind the traling slash in the metrics path**
 
     \- job_name: adapools-exporter<br>
     &nbsp;&nbsp;&nbsp;&nbsp;scrape_interval: 15s<br>
