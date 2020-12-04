@@ -17,7 +17,7 @@ Installation:
 + paste the following:
 
     [Unit]<br>
-    Description=Adapool scraper<br>
+    Description=Adapool exporter<br>
     After=network-online.target<br>
     <br>
     [Service]<br>
