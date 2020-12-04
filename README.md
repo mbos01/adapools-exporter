@@ -19,7 +19,7 @@ Installation:
 + paste the following:
 
     [Unit]<br>
-    Description=Adapool exporter<br>
+    Description=Adapools exporter<br>
     After=network-online.target<br>
     <br>
     [Service]<br>
