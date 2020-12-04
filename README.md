@@ -17,13 +17,17 @@ Installation:
 + paste the following:
 
     [Unit]<br>
-    Description=Adapool exporter<br>
+    Description=Adapool scraper<br>
     After=network-online.target<br>
     <br>
     [Service]<br>
-    WorkingDirectory=/opt/pool.stats<br>
-    ExecStart=/usr/bin/[PYTHON VERSION] /opt/adapools-exporter/adapools-exporter.py<br>
+    Type=simple<br>
+    User=prometheus<br>
+    Group=prometheus<br>
+    WorkingDirectory=/opt/adapools-exporter<br>
+    ExecStart=/usr/bin/python3 /opt/adapools-exporter/adapools-exporter.py<br>
     StandardOutput=null<br>
+    Restart=always<br>
     <br>
     [Install]<br>
     WantedBy=multi-user.target<br>
