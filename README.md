@@ -39,10 +39,11 @@ Installation:
 
 + add new job to /etc/prometheus/prometheus.yaml:
 
-  \- job_name: adapools<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;scrape_interval: 15s<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;metrics_path: /metrics/ <-- the python http.server component expects this trailing slash<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;static_configs:<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\- targets: ['127.0.0.1:8000']<br>
+    \- job_name: adapools-exporter<br>
+        scrape_interval: 15s<br>
+        metrics_path: /metrics/ <-- the python http.server component expects this trailing slash<br>
+        static_configs:<br>
+            \- targets: ['127.0.0.1:8000']<br>
+    
 + sudo service prometheus restart 
 + metrics will now be available in Prometheus
