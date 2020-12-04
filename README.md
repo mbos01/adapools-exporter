@@ -48,4 +48,5 @@ Installation:
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\- targets: ['127.0.0.1:8000']<br>
     
 + sudo service prometheus restart 
-+ metrics will now be available in Prometheus
++ metrics will now be available in Prometheus:<p>
+![alt text](https://github.com/mbos01/adapools-exporter/blob/main/adapools.png?raw=true)
