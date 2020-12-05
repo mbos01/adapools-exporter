@@ -11,5 +11,5 @@ Installation:
 + chmod +x adapools-exporter-installer.sh
 + ./adapools-exporter-installer.sh
 + follow the steps
-+ metrics will now be available in Prometheus:<p>
++ metrics will be available in Prometheus:<p>
 ![alt text](https://github.com/mbos01/adapools-exporter/blob/main/adapools.png?raw=true)
