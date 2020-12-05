@@ -146,7 +146,6 @@ if [[ -e "/etc/prometheus/prometheus.yml" ]]; then
 	while true
 	do
  		read -r -p "Prometheus config detected. Do you want to add a new job? (Y/N) " input
-
  		case $input in
      		[yY][eE][sS]|[yY])
 			echo -e $p_job >> /etc/prometheus/prometheus.yml
