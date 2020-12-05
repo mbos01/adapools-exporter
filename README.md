@@ -10,6 +10,6 @@ Installation:
 + wget https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter-installer.sh
 + chmod +x adapools-exporter-installer.sh
 + ./adapools-exporter-installer.sh
-+ follow the steps<p>
++ follow the steps
 + metrics will now be available in Prometheus:<p>
 ![alt text](https://github.com/mbos01/adapools-exporter/blob/main/adapools.png?raw=true)
