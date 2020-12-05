@@ -139,15 +139,15 @@ p_job="$p_job    metrics_path: /metrics/\n"
 p_job="$p_job    static_configs:\n"
 p_job="$p_job        - targets: ['127.0.0.1:8000']\n"
 
-#check if prometheus.yaml is available
-if [[ -e "/etc/prometheus/prometheus.yaml" ]]; then
+#check if prometheus.yml is available
+if [[ -e "/etc/prometheus/prometheus.yml" ]]; then
 	while true
 	do
  		read -r -p "Prometheus config detected. Do you want to add a new job? (Y/N) " input
 
  		case $input in
      		[yY][eE][sS]|[yY])
-			echo -e $p_job >> /etc/prometheus/prometheus.yaml
+			echo -e $p_job >> /etc/prometheus/prometheus.yml
 			echo "Adapools-exporter job was added to prometheus config."
 			break
  		;;
