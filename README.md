@@ -7,6 +7,13 @@ Please note that in the below installation guide I assume Python3 is installed a
 
 Installation:
 -------------
+*Automatic*
++ wget https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter-installer.sh
++ chmod +x adapools-exporter-installer.sh
++ ./adapools-exporter-installer.sh
++ follow the steps<p>
+-------------
+*Manual*
 + cd /opt
 + sudo git clone https://github.com/mbos01/adapools-exporter.git
 + sudo -R chown prometheus:prometheus adapools-exporter
@@ -46,7 +53,7 @@ Installation:
     &nbsp;&nbsp;&nbsp;&nbsp;scrape_interval: 15s<br>
     &nbsp;&nbsp;&nbsp;&nbsp;metrics_path: /metrics/<br>
     &nbsp;&nbsp;&nbsp;&nbsp;static_configs:<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\- targets: ['127.0.0.1:8000']<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\- targets: ['127.0.0.1:8000']<p>
     
 + sudo service prometheus restart 
 + metrics will now be available in Prometheus:<p>
