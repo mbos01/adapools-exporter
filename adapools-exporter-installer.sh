@@ -95,7 +95,7 @@ done
 
 #create app directory and change owner
 mkdir "$install_path/adapools-exporter"
-chown $install_user:$install_user "$install_path/adapools-exporter"
+chown -R $install_user:$install_user "$install_path/adapools-exporter"
 
 #download script
 wg_output=$(wget -O "$install_path/adapools-exporter/adapools-exporter.py" https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py)
