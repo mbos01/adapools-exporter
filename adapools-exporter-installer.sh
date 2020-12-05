@@ -93,9 +93,8 @@ done
 
 #start installation
 
-#create app directory and change owner
+#create app directory
 mkdir "$install_path/adapools-exporter"
-chown -R $install_user:$install_user "$install_path/adapools-exporter"
 
 #download script
 wg_output=$(wget -O "$install_path/adapools-exporter/adapools-exporter.py" https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py)
@@ -105,6 +104,9 @@ if [ $? -ne 0 ]; then
 	rm -R "$install_path/adapools-exporter"
 	exit
 fi
+
+#change owner
+chown -R $install_user:$install_user "$install_path/adapools-exporter"
 
 #add pool id
 sed -i "s/!!!!!YOUR-POOL-ID!!!!!/$pool_id/" "$install_path/adapools-exporter/adapools-exporter.py"
@@ -132,7 +134,7 @@ systemctl daemon-reload
 systemctl enable adapools-exporter.service
 systemctl start adapools-exporter.service
 
-#prometheus job
+#prometheus job data
 p_job="- job_name: adapools-exporter\n"
 p_job="$p_job    scrape_interval: 15s\n"
 p_job="$p_job    metrics_path: /metrics/\n"
