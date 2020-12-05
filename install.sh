@@ -2,8 +2,10 @@
 
 #must run with sudo
 if [[ "$EUID" -ne 0 ]]; then
-        echo "Please run with sudo"
-        exit
+        #echo "Please run with sudo"
+	sudo bash $0 "$@"
+    	exit $?
+        #exit
 fi
 
 #check if adapools-exporter service already exists
