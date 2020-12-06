@@ -165,6 +165,3 @@ else
 	echo -e "\nNo prometheus config found. Please add a new job manually."
 	echo -e "\n$p_job"
 fi
-
-
-#test
