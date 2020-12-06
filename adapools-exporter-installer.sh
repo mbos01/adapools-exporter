@@ -9,7 +9,7 @@ fi
 #check if adapools-exporter service already exists
 if systemctl list-units --full -all | grep "adapools-exporter"; then
         echo -e "\e[1;31m adapools-exporter service exists! \e[0m"
-	#exit
+	exit
 fi
 
 #determine location
