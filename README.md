@@ -11,10 +11,33 @@ Installation:
 - wget -O /opt/adapools-exporter/adapools-exporter.py https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
 - sudo chown -R prometheus:prometheus /opt/adapools-exporter
 - sudo nano /etc/systemd/system/adapools-exporter.service
+-------------
+	[Unit]
+	Description=Adapools exporter
+	After=network-online.target
+
+	[Service]
+	Type=simple
+	User=prometheus
+	WorkingDirectory=/opt/adapools-exporter
+	ExecStart=$python /opt/adapools-exporter/adapools-exporter.py
+	StandardOutput=null
+	Restart=always
+
+	[Install]
+	WantedBy=multi-user.target
+  
 - sudo systemctl daemon-reload
 - sudo systemctl enable adapools-exporter.service
 - sudo systemctl start adapools-exporter.service
 - sudo nano /etc/prometheus/prometheus.yml
+-------------
+	- job_name: adapools-exporter
+	  scrape_interval: 15s
+	  metrics_path: /metrics/
+	  static_configs:
+		- targets: ['127.0.0.1:8000']
+    
 - sudo systemctl restart prometheus.service
 - metrics will be available in Prometheus:<p>
 ![alt text](https://github.com/mbos01/adapools-exporter/blob/main/adapools.png?raw=true)
