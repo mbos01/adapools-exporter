@@ -8,7 +8,17 @@ As per best practice the script should be installed on the same server Prometheu
 Installation:
 -------------
 - mkdir /opt/adapools-exporter
-- wget -O /opt/adapools-exporter/adapools-exporter.py https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
+- sudo wget -O /opt/adapools-exporter/adapools-exporter.py https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
+- sudo nano /opt/adapools-exporter/adapools-exporter.py
+-------------
+
+	change !!!!!YOUR-POOL-ID!!!!! to your own pool id
+	
+	url = "https://js.adapools.org/pools/!!!!!YOUR-POOL-ID!!!!!/summary.json"
+	
+-------------
+
+- save and exit nano
 - sudo chown -R prometheus:prometheus /opt/adapools-exporter
 - sudo nano /etc/systemd/system/adapools-exporter.service
 -------------
