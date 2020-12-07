@@ -175,12 +175,14 @@ do
             t=$(grep "job_name:" /etc/prometheus/prometheus.yml | tail -1)
             rest=${t#*$searchstring}
             ws=$(( ${#t} - ${#rest} - ${#searchstring} ))
-
+            echo $ws
             #could not read config file
-            #if [[ $ws -eq "" ]]: then
-            #    echo -e "\e[1;31m Unable to read Prometheus config file! Only (Y/N) \e[0m"
-            #    exit
-            #fi
+            if [[ $ws -eq -1 ]]; then
+                echo -e "\e[1;31m Unable to read Prometheus config file! \e[0m"
+                echo -e "Please add the below information to your Prometheus config:\n"
+                write_promjob
+                exit
+            fi
 
             #determine whitespace
             wsc=0
