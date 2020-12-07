@@ -151,4 +151,54 @@ systemctl daemon-reload
 systemctl enable adapools-exporter.service
 systemctl start adapools-exporter.service
 
+#check if prometheus.yml is available
+while true
+do
+    if [[ -e "/etc/prometheus/prometheus.yml" ]]; then
+        read -r -p "Prometheus config detected. Do you want to add a new job? (Y/N) " input
+        if [[ $input =~ "y" || $input =~ "Y" ]]; then
+                #read config file to seel if job already exists
+                if [[ $(grep "adapools" /etc/prometheus/prometheus.yml) ]]; then
+                        echo -e "\e[1;31m Adapools job already exists in Prometheus config! \e[0m"
+                        break
+                fi
 
+                #determine spaces for idents
+                searchstring="-"
+                t=$(grep "job_name:" /etc/prometheus/prometheus.yml | tail -1)
+                rest=${t#*$searchstring}
+                ws=$(( ${#t} - ${#rest} - ${#searchstring} ))
+                echo $ws
+                #could not read config file
+                if [[ $ws -eq -1 ]]; then
+                        echo -e "\e[1;31m Unable to read Prometheus config file! \e[0m"
+                        echo -e "Please add the below information to your Prometheus config:\n"
+                        write_promjob
+                        exit
+                fi
+
+                #determine whitespace
+                wsc=0
+                while [[ $wsc -le $(($ws-1)) ]]
+                do
+                        whitespace="$whitespace "           
+                        ((wsc=wsc+1))
+                done
+
+                #remove empty lines at bottom of file
+                echo -e "$(cat /etc/prometheus/prometheus.yml | tac | awk 'NF {p=1} p' | tac)\n" > /etc/prometheus/prometheus.yml
+
+                #write to prometheus config  
+                write_promjob >> /etc/prometheus/prometheus.yml
+                echo "Adapools-exporter job was added to prometheus config."
+                break
+        elif [[ $input =~ "n" || $input =~ "N" ]]; then
+                echo "Adapools-exporter job was not added."
+                echo -e "Please add the below information to your Prometheus config:\n"
+                write_promjob | sed "s/127.0.0.1/YOURIP/"
+                break
+        else
+                echo -e "\e[1;31m Invalid input... Only (Y/N) \e[0m"  
+        fi
+    fi
+done
