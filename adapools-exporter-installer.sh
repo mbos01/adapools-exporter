@@ -1,5 +1,22 @@
 #!/bin/bash
 
+write_promjob () {
+    #prometheus job data
+    p_job=("- job_name: adapools-exporter\n" "${p_job[@]}")
+    p_job=("  scrape_interval: 15s\n" "${p_job[@]}")
+    p_job=("  metrics_path: /metrics/\n" "${p_job[@]}")
+    p_job=("  static_configs:\n" "${p_job[@]}")
+    p_job=("    - targets: ['127.0.0.1:8000']\n" "${p_job[@]}")
+
+    c=0
+    while [[ $c -le $((${#p_job[@]}-1)) ]]
+    do
+        var="$whitespace${p_job[$((${#p_job[@]}-1-$c))]}"
+        echo "${var:0:${#var}-2}" #>> /etc/prometheus/prometheus.yml
+        ((c=c+1))
+    done
+}
+
 #must run with sudo
 if [[ "$EUID" -ne 0 ]]; then
 	sudo bash $0 "$@"
@@ -35,7 +52,7 @@ do
                 echo -e "\e[1;31m You cannot use special characters. \e[0m"
         elif ! id -u "$useracc" >/dev/null 2>&1; then
                         read -p "User does not exist, create a new account? (Y/N)" create_new
-                        if [[ $create_new =~ "y" || $create_new =~ "Y"]]; then
+                        if [[ $create_new -eq "y" || $create_new -eq "Y" ]]; then
                                 useradd -r -s /bin/false $useracc
                                 install_user=$useracc
                         fi
@@ -134,34 +151,4 @@ systemctl daemon-reload
 systemctl enable adapools-exporter.service
 systemctl start adapools-exporter.service
 
-#prometheus job data
-p_job="- job_name: adapools-exporter\n"
-p_job="$p_job    scrape_interval: 15s\n"
-p_job="$p_job    metrics_path: /metrics/\n"
-p_job="$p_job    static_configs:\n"
-p_job="$p_job        - targets: ['127.0.0.1:8000']\n"
 
-#check if prometheus.yml is available
-if [[ -e "/etc/prometheus/prometheus.yml" ]]; then
-	while true
-	do
- 		read -r -p "Prometheus config detected. Do you want to add a new job? (Y/N) " input
- 		case $input in
-     		[yY][eE][sS]|[yY])
-			echo -e $p_job >> /etc/prometheus/prometheus.yml
-			echo "Adapools-exporter job was added to prometheus config."
-			break
- 		;;
-     		[nN][oO]|[nN])
- 			echo "Adapools-exporter job was not added."
- 			break
-        	;;
-     		*)
- 			echo -e "\e[1;31m Invalid input... Only (Y/N) \e[0m"
- 		;;
- 		esac
-	done
-else
-	echo -e "\nNo prometheus config found. Please add a new job manually."
-	echo -e "\n$p_job"
-fi
