@@ -168,7 +168,7 @@ do
                 t=$(grep "job_name:" /etc/prometheus/prometheus.yml | tail -1)
                 rest=${t#*$searchstring}
                 ws=$(( ${#t} - ${#rest} - ${#searchstring} ))
-                echo $ws
+
                 #could not read config file
                 if [[ $ws -eq -1 ]]; then
                         echo -e "\e[1;31m Unable to read Prometheus config file! \e[0m"
@@ -191,6 +191,7 @@ do
                 #write to prometheus config  
                 write_promjob >> /etc/prometheus/prometheus.yml
                 echo "Adapools-exporter job was added to prometheus config."
+                systemctl restart prometheus.service
                 break
         elif [[ $input =~ "n" || $input =~ "N" ]]; then
                 echo "Adapools-exporter job was not added."
