@@ -52,7 +52,7 @@ do
                 echo -e "\e[1;31m You cannot use special characters. \e[0m"
         elif ! id -u "$useracc" >/dev/null 2>&1; then
                         read -p "User does not exist, create a new account? (Y/N)" create_new
-                        if [[ $create_new -eq "y" || $create_new -eq "Y"]]; then
+                        if [[ $create_new -eq "y" || $create_new -eq "Y"]] then
                                 useradd -r -s /bin/false $useracc
                                 install_user=$useracc
                         fi
