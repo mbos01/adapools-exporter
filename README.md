@@ -33,7 +33,7 @@ Installation:
 	Type=simple
 	User=prometheus
 	WorkingDirectory=/opt/adapools-exporter
-	ExecStart=$python /opt/adapools-exporter/adapools-exporter.py
+	ExecStart=/usr/bin/python /opt/adapools-exporter/adapools-exporter.py
 	StandardOutput=null
 	Restart=always
 
