@@ -34,8 +34,8 @@ do
         elif [[ ! $useracc =~ ^[A-Za-z0-9_.-]+$ ]]; then
                 echo -e "\e[1;31m You cannot use special characters. \e[0m"
         elif ! id -u "$useracc" >/dev/null 2>&1; then
-                        read -p "User does not exist, create a new account? (y/n)" create_new
-                        if [[ $create_new =~ "y" ]]; then
+                        read -p "User does not exist, create a new account? (Y/N)" create_new
+                        if [[ $create_new =~ "y" || $create_new =~ "Y"]]; then
                                 useradd -r -s /bin/false $useracc
                                 install_user=$useracc
                         fi
