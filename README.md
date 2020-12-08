@@ -10,15 +10,6 @@ Installation:
 - mkdir /opt/adapools-exporter
 - sudo wget -O /opt/adapools-exporter/adapools-exporter.py https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
 - sudo nano /opt/adapools-exporter/adapools-exporter.py
--------------
-
-	change !!!!!YOUR-POOL-ID!!!!! to your own pool id
-	
-	url = "https://js.adapools.org/pools/!!!!!YOUR-POOL-ID!!!!!/summary.json"
-	
--------------
-
-- save and exit nano
 - sudo chown -R prometheus:prometheus /opt/adapools-exporter
 - sudo nano /etc/systemd/system/adapools-exporter.service
 -------------
@@ -48,11 +39,11 @@ Installation:
 - sudo nano /etc/prometheus/prometheus.yml
 -------------
 
-	add the following:
+	add the following: (don't forget to use your own pool id)
 	
 	- job_name: adapools-exporter
-	  scrape_interval: 15s
-	  metrics_path: /metrics/
+	  scrape_interval: 600s
+	  metrics_path: /poolid=YOUR POOL ID
 	  static_configs:
 		- targets: ['127.0.0.1:8000']
 
