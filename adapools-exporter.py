@@ -37,7 +37,7 @@ def makeHandler(url, delkeys):
                 poolid = parsed_url.path.split("poolid=")[1].split("+")[0]
 
                 #is prefix sent along?
-                if (len(parsed_url.path.split("prefix=")) < 2): #no custom prefix
+                if ((len(parsed_url.path.split("prefix=")) < 2) or (parsed_url.path.split("prefix=")[1]) == ""): #default prefix
                     prefix = "adapools_"
                 else:
                     prefix = parsed_url.path.split("prefix=")[1] #use custom prefix
