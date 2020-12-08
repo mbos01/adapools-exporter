@@ -41,9 +41,9 @@ def makeHandler(url, delkeys):
                     prefix = "adapools_"
                 else:
                     prefix = parsed_url.path.split("prefix=")[1] #use custom prefix
-            
+
             pooldata = self.getPoolData(url.replace("[POOLID]", poolid), delkeys, prefix)
-            html = '\r\n'.join(pooldata)
+            html = "\n".join(pooldata)
 
 			#send output to client
             self.send_response(200)
