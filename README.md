@@ -43,7 +43,7 @@ Installation:
 	
 	- job_name: adapools-exporter
 	  scrape_interval: 600s
-	  metrics_path: /poolid=YOUR POOL ID
+	  metrics_path: /poolid=YOUR_POOL_ID+prefix=OPTIONAL_CUSTOM_PREFIX (this defaults to adapools_)
 	  static_configs:
 		- targets: ['127.0.0.1:8000']
 
