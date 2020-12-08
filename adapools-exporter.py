@@ -3,7 +3,6 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib import parse
 
 ### SETTINGS ####################################################################################
-delkeys = "hist_bpe,handles,hist_roa,db_ticker,db_name,db_url,ticker_orig,pool_id,db_description,direct,stake_x_deleg,group_basic" #no metric data
 http_port = 8000 #webserver port
 http_address = "localhost" #webserver is listening on this address
 #################################################################################################
@@ -57,7 +56,7 @@ def makeHandler(url, delkeys):
 
 # no need to change these!! #####################################################################
 url = "https://js.adapools.org/pools/[POOLID]/summary.json" #adapools json
-delkeys = "hist_bpe,handles,hist_roa,db_ticker,db_name,db_url,ticker_orig,pool_id,db_description,direct,stake_x_deleg,group_basic" 
+delkeys = "hist_bpe,handles,hist_roa,db_ticker,db_name,db_url,ticker_orig,pool_id,db_description,direct,stake_x_deleg,group_basic" #no metric data
 #################################################################################################
 
 try:
