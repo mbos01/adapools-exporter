@@ -43,7 +43,7 @@ def makeHandler(url, delkeys):
 
             pooldata = self.getPoolData(url.replace("[POOLID]", poolid), delkeys, prefix)
             html = "\n".join(pooldata)
-
+			
 			#send output to client
             self.send_response(200)
             self.send_header('Content-Type',
