@@ -28,20 +28,19 @@ def makeHandler(url, delkeys):
             return pooldata #return list
 
         def do_GET(self):
-            parsed_path = parse.urlparse(self.path) #parse url
+            parsed_url = parse.urlparse(self.path) #parse url
 
-            if (len(parsed_path.query.split("poolid=")) < 2):
-                #there's no pool id
-                print("No pool id!")
+            if (len(parsed_url.path.split("poolid=")) < 2):
+                print("No pool id!") #there's no pool id
                 return
             else:
-                poolid = parsed_path.query.split("poolid=")[1].split("+")[0]
+                poolid = parsed_url.path.split("poolid=")[1].split("+")[0]
 
                 #is prefix sent along?
-                if (len(parsed_path.query.split("prefix=")) < 2): #no custom prefix
+                if (len(parsed_url.path.split("prefix=")) < 2): #no custom prefix
                     prefix = "adapools_"
                 else:
-                    prefix = parsed_path.query.split("prefix=")[1] #use custom prefix
+                    prefix = parsed_url.path.split("prefix=")[1] #use custom prefix
             
             pooldata = self.getPoolData(url.replace("[POOLID]", poolid), delkeys, prefix)
             html = '\r\n'.join(pooldata)
@@ -56,9 +55,10 @@ def makeHandler(url, delkeys):
             return
     return getHandler
 
-#no need to change these!!
+# no need to change these!! #####################################################################
 url = "https://js.adapools.org/pools/[POOLID]/summary.json" #adapools json
 delkeys = "hist_bpe,handles,hist_roa,db_ticker,db_name,db_url,ticker_orig,pool_id,db_description,direct,stake_x_deleg,group_basic" 
+#################################################################################################
 
 try:
 	#spawn webserver
