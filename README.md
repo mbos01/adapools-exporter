@@ -14,7 +14,7 @@ Installation:
 - sudo nano /etc/systemd/system/adapools-exporter.service
 -------------
 
-	add the following:
+	add the following: (you may have to change /usr/bin/python)
 	
 	[Unit]
 	Description=Adapools exporter
