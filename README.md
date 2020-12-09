@@ -5,50 +5,120 @@ In the search of a way to use [Adapools](https://www.adapools.org) data as metri
 
 As per best practice the script should be installed on the same server Prometheus is running on, using the same user Prometheus is running with. This prohibits exposing any ports.
 
+Prerequisites:
+-------------
+* Python 3.8
+* Prometheus
+
 Installation:
 -------------
-- mkdir /opt/adapools-exporter
-- sudo wget -O /opt/adapools-exporter/adapools-exporter.py https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
-- sudo nano /opt/adapools-exporter/adapools-exporter.py
-- sudo chown -R prometheus:prometheus /opt/adapools-exporter (you may want to use another user)
-- sudo nano /etc/systemd/system/adapools-exporter.service
--------------
+1. Installing Python3. 
+   > If you already have python installed, you can skip this step.
+   ```
+   sudo apt-get update
+   sudo apt-get install software-properties-common
+   sudo add-apt-repository ppa:deadsnakes/ppa
+   sudo apt-get update
+   sudo apt-get install python3.8
+   ```
 
-	add the following: (feel free to change /usr/bin/python or the user it runs with)
-	
-	[Unit]
-	Description=Adapools exporter
-	After=network-online.target
+2. Downloading adapools-exporter
+   ```
+   mkdir /opt/adapools-exporter
+   sudo wget -O /opt/adapools-exporter/adapools-exporter.py https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
+   ```
 
-	[Service]
-	Type=simple
-	User=prometheus
-	WorkingDirectory=/opt/adapools-exporter
-	ExecStart=/usr/bin/python /opt/adapools-exporter/adapools-exporter.py
-	StandardOutput=null
-	Restart=always
+3. Create a systemd service configuration file for adapools-exporter
+   ```
+   sudo nano /etc/systemd/system/adapools-exporter.service
+   ```
+   > Warning: If you want the script to run as a different user, follow the "Optional Steps" bellow.
+   ```
+   [Unit]
+   Description=Adapools exporter
+   After=network-online.target
+   
+   [Service]
+   Type=simple
+   User=$(whoami)
+   WorkingDirectory=/opt/adapools-exporter
+   ExecStart=/usr/bin/python3 /opt/adapools-exporter/adapools-exporter.py
+   StandardOutput=null
+   Restart=always
+   
+   [Install]
+   WantedBy=multi-user.target
+   ```
 
-	[Install]
-	WantedBy=multi-user.target
+4. Edit the `prometheus.yml` to include `adapools-exporter` as a job.
+   ```
+   sudo nano /path/to/prometheus.yml
+   ```
+   ```
+   # Don't forget to update YOUR_POOL_ID bellow
+   # Update OPTIONAL_CUSTOM_PREFIX if you don't want to see "adapool_" in prometheus
+   
+   - job_name: adapools-exporter
+     scrape_interval: 60s
+     metrics_path: /poolid=YOUR_POOL_ID+prefix=OPTIONAL_CUSTOM_PREFIX
+     static_configs:
+     - targets: ['127.0.0.1:8000']
+   ```
 
--------------
-- save and exit nano
-- sudo systemctl daemon-reload
-- sudo systemctl enable adapools-exporter.service
-- sudo systemctl start adapools-exporter.service
-- sudo nano /etc/prometheus/prometheus.yml
--------------
+5. Add `adapools-exporter` to systemd
+   ```
+   sudo systemctl daemon-reload
+   sudo systemctl enable adapools-exporter.service
+   sudo systemctl start adapools-exporter.service
+   ```
 
-	add the following: (don't forget to use your own pool id)
-	
-	- job_name: adapools-exporter
-	  scrape_interval: 60s
-	  metrics_path: /poolid=YOUR_POOL_ID+prefix=OPTIONAL_CUSTOM_PREFIX (this defaults to adapools_)
-	  static_configs:
-		- targets: ['127.0.0.1:8000']
+6. Check to make sure its running
+   > If adapools-exporter is not running, check the "Common Issues" section bellow
+   ```
+   sudo systemctl status adapools-exporter.service
+   ```
 
--------------
-- save and exit nano
-- sudo systemctl restart prometheus.service
+7. If everything is running smoothly, restart `prometheus.service`
+   ```
+   sudo systemctl restart prometheus.service
+   ```
 - metrics will be available in Prometheus:<p>
 ![alt text](https://github.com/mbos01/adapools-exporter/blob/main/adapools.png?raw=true)
+
+Optional Steps:
+-------------
+1. By default, adapools runs on port `8080`. To change it, edit `http_port`
+   ```
+   sudo nano /opt/adapools-exporter/adapools-exporter.py
+   
+   ...
+   
+   ### SETTINGS ####################################################################################
+   http_port = 8000 #webserver port
+   http_address = "localhost" #webserver is listening on this address
+   #################################################################################################
+   
+   ...
+   ```
+2. To run adapools-exporter as a different user, we need to change the permissions and update the `adapools-exporter.service`
+   ```
+   sudo chown -R <username>:<username> /opt/adapools-exporter
+   ```
+   ```
+   sudo nano /etc/systemd/system/adapools-exporter.service
+   
+   ...
+   # Change this to the desired username
+   User=<username>
+   ...
+   
+   ```
+3. If you made any changes above, reload `adapools-exporter.service`
+   ```
+   sudo systemctl daemon-reload
+   sudo systemctl enable adapools-exporter.service
+   sudo systemctl start adapools-exporter.service
+   ```
+
+Common Issues:
+-------------
