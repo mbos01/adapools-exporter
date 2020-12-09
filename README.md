@@ -10,11 +10,11 @@ Installation:
 - mkdir /opt/adapools-exporter
 - sudo wget -O /opt/adapools-exporter/adapools-exporter.py https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
 - sudo nano /opt/adapools-exporter/adapools-exporter.py
-- sudo chown -R prometheus:prometheus /opt/adapools-exporter
+- sudo chown -R prometheus:prometheus /opt/adapools-exporter (you may want to use another user)
 - sudo nano /etc/systemd/system/adapools-exporter.service
 -------------
 
-	add the following: (you may have to change /usr/bin/python)
+	add the following: (feel free to change /usr/bin/python or the user it runs with)
 	
 	[Unit]
 	Description=Adapools exporter
