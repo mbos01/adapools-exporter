@@ -22,13 +22,13 @@ As per best practice the script should be installed on the same server Prometheu
 
 2. Download `adapools-exporter`
    ```
-   mkdir /opt/adapools-exporter
+   sudo mkdir /opt/adapools-exporter
    cd /opt/adapools-exporter
    sudo https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
    ```
 
 3. Change folder ownership to `prometheus`
-   > Warning: If you want the script to run as a different user, go to [`"Run adapools-exporter as a different user"`](#run-adapools-exporter-as-a-different-user) bellow. Once that's completed, skip step 4 bellow and go to step 5.
+   > Warning: If you want the script to run as a different user, go to [`"Run adapools-exporter as a different user"`](#run-adapools-exporter-as-a-different-user) below. Once that's completed, skip step 4 below and go to step 5.
    ```
    sudo chown -R prometheus:prometheus /opt/adapools-exporter
    ```
@@ -61,7 +61,7 @@ As per best practice the script should be installed on the same server Prometheu
    ```
    ```
    # Paste this under "scrape_configs"
-   # Don't forget to update YOUR_POOL_ID bellow
+   # Don't forget to update YOUR_POOL_ID below
    # Update OPTIONAL_CUSTOM_PREFIX if you don't want to see "adapool_" in prometheus
    
    - job_name: 'adapools-exporter'
@@ -79,7 +79,7 @@ As per best practice the script should be installed on the same server Prometheu
    ```
 
 7. Check to make sure its running
-   > If adapools-exporter is not running, check the [`"Common Issues"`](#common-issues) section bellow
+   > If adapools-exporter is not running, check the [`"Common Issues"`](#common-issues) section below
    ```
    sudo systemctl status adapools-exporter.service
    
@@ -119,7 +119,7 @@ Metrics will now be available in Prometheus:<p>
 # Optional Steps
 
 ### Change default port
-By default, adapools runs on port `8080`. To change it, edit `http_port` under `SETTINGS`
+By default, adapools runs on port `8000`. To change it, edit `http_port` under `SETTINGS`
 ```
 sudo nano /opt/adapools-exporter/adapools-exporter.py
 
@@ -146,7 +146,7 @@ Open `adapools-exporter.service` for us to modify the `User` config
 sudo nano /etc/systemd/system/adapools-exporter.service
 ```
 
-If this file is empty, then copy the block bellow and update `<username>`.
+If this file is empty, then copy the block below and update `<username>`.
 If this file is not empty, look for `"User=<username>"` and update `<username>` with the user you used in the previous step.
 
 ```
