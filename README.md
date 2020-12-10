@@ -23,8 +23,7 @@ As per best practice the script should be installed on the same server Prometheu
 2. Download `adapools-exporter`
    ```
    sudo mkdir /opt/adapools-exporter
-   cd /opt/adapools-exporter
-   sudo https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
+   sudo wget -O /opt/adapools-exporter/adapools-exporter.py https://raw.githubusercontent.com/mbos01/adapools-exporter/main/adapools-exporter.py
    ```
 
 3. Change folder ownership to `prometheus`
