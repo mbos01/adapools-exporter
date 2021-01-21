@@ -56,7 +56,7 @@ def makeHandler(url, delkeys):
 
 # no need to change these!! #####################################################################
 url = "https://js.adapools.org/pools/[POOLID]/summary.json" #adapools json
-delkeys = "hist_bpe,handles,hist_roa,db_ticker,db_name,db_url,ticker_orig,pool_id,db_description,direct,stake_x_deleg,group_basic" #no metric data
+delkeys = "pool_id_bech32,hist_bpe,handles,hist_roa,db_ticker,db_name,db_url,ticker_orig,pool_id,db_description,direct,stake_x_deleg,group_basic" #no metric data
 #################################################################################################
 
 try:
